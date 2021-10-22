@@ -1,8 +1,10 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import { ApplicationModule } from './app.module';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
-}
-bootstrap();
+const runServer = async () => {
+  const app = await NestFactory.create(ApplicationModule, new ExpressAdapter());
+  await app.listen(3180, '::');
+};
+
+runServer().catch(console.error);
